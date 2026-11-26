@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Av3nger123/blueprints/main/spec/blueprint.schema.json",
+  "title": "blueprint.yaml",
+  "description": "Metadata for a blueprint, spec version 0.1. See spec/blueprint-spec.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "spec_version",
+    "name",
+    "version",
+    "title",
+    "summary",
+    "category",
+    "status",
+    "authors",
+    "reviewers",
+    "stacks",
+    "depends_on",
+    "sources",
+    "verification",
+    "last_reviewed"
+  ],
+  "properties": {
+    "spec_version": { "const": "0.1" },
+    "name": { "$ref": "#/$defs/name" },
+    "version": { "$ref": "#/$defs/semver" },
+    "title": { "type": "string", "minLength": 3, "maxLength": 80 },
+    "summary": { "type": "string", "minLength": 10, "maxLength": 280 },
+    "category": { "$ref": "#/$defs/kebab" },
+    "status": { "enum": ["draft", "community", "verified", "expert-reviewed"] },
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/person" }
+    },
+    "reviewers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/reviewer" }
+    },
+    "stacks": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/kebab" }
+    },
+    "depends_on": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "version"],
+        "properties": {
+          "name": { "$ref": "#/$defs/name" },
+          "version": { "$ref": "#/$defs/range" }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "url", "kind"],
+        "properties": {
+          "title": { "type": "string", "minLength": 3 },
+          "url": { "type": "string", "pattern": "^https://" },
+          "kind": { "enum": ["standard", "rfc", "guide", "paper", "library-docs"] }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework", "command", "runtime", "env"],
+      "properties": {
+        "framework": { "type": "string", "minLength": 1 },
+        "command": { "type": "string", "minLength": 1 },
+        "runtime": { "type": "string", "minLength": 1 },
+        "env": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "required", "description"],
+            "properties": {
+              "name": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+              "required": { "type": "boolean" },
+              "description": { "type": "string", "minLength": 3 },
+              "default": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "last_reviewed": { "type": "string", "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$" },
+    "license": { "type": "string", "minLength": 1 },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/kebab" }
+    }
+  },
+  "$defs": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,48}[a-z0-9]$"
+    },
+    "kebab": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[0-9A-Za-z-]+(\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "range": {
+      "type": "string",
+      "pattern": "^(\\*|[\\^~]?(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*))$"
+    },
+    "person": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "github": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" },
+        "url": { "type": "string", "pattern": "^https://" }
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "role", "reviewed_version", "date"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "github": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" },
+        "url": { "type": "string", "pattern": "^https://" },
+        "role": { "type": "string", "minLength": 3 },
+        "reviewed_version": { "$ref": "#/$defs/semver" },
+        "date": { "type": "string", "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$" }
+      }
+    }
+  }
+}
