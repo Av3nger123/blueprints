@@ -27,6 +27,12 @@ importers:
         specifier: ^8.74.0
         version: 8.74.0(eslint@10.15.0)(typescript@6.0.3)
 
+  packages/cli:
+    dependencies:
+      '@your-npm-scope/blueprints-core':
+        specifier: workspace:*
+        version: link:../core
+
   packages/core:
     dependencies:
       ajv:

@@ -1,0 +1,31 @@
+{
+  "name": "@your-npm-scope/blueprints",
+  "version": "0.1.0",
+  "description": "Add expert implementation blueprints to your project so AI coding agents build it right, then verify the result",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "blueprints": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/test-fixtures"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": ["ai", "agents", "blueprints", "claude-code", "cursor", "codex", "security"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Av3nger123/blueprints.git",
+    "directory": "packages/cli"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --import tsx --test src/*.test.ts"
+  },
+  "dependencies": {
+    "@your-npm-scope/blueprints-core": "workspace:*"
+  }
+}

@@ -5,7 +5,7 @@ import { config } from './lib/config.mjs';
 
 const sessionOnly = config.mode !== 'session' && 'AUTH_MODE=token: session cookie checks do not apply';
 
-describe('session cookie attributes', { skip: sessionOnly }, () => {
+describe('session cookie attributes', () => {
   let cookies;
   async function load() {
     if (cookies) return cookies;
@@ -15,11 +15,11 @@ describe('session cookie attributes', { skip: sessionOnly }, () => {
     return cookies;
   }
 
-  test('AUTH-14 session cookie is HttpOnly', async () => {
+  test('AUTH-14 session cookie is HttpOnly', { skip: sessionOnly }, async () => {
     for (const c of await load()) assert.ok(c.attrs.httponly, `${c.name} is missing HttpOnly`);
   });
 
-  test('AUTH-15 session cookie is Secure', async (t) => {
+  test('AUTH-15 session cookie is Secure', { skip: sessionOnly }, async (t) => {
     const list = await load();
     const missing = list.filter((c) => !c.attrs.secure);
     if (missing.length && !config.https) {
@@ -29,14 +29,14 @@ describe('session cookie attributes', { skip: sessionOnly }, () => {
     assert.equal(missing.length, 0, `missing Secure: ${missing.map((c) => c.name).join(', ')}`);
   });
 
-  test('AUTH-16 session cookie has SameSite=Lax or Strict', async () => {
+  test('AUTH-16 session cookie has SameSite=Lax or Strict', { skip: sessionOnly }, async () => {
     for (const c of await load()) {
       const ss = String(c.attrs.samesite ?? '').toLowerCase();
       assert.ok(ss === 'lax' || ss === 'strict', `${c.name} has SameSite=${c.attrs.samesite ?? '(unset)'}`);
     }
   });
 
-  test('AUTH-17 session cookie is host-only with Path=/ (__Host- prefix rules)', async () => {
+  test('AUTH-17 session cookie is host-only with Path=/ (__Host- prefix rules)', { skip: sessionOnly }, async () => {
     for (const c of await load()) {
       assert.equal(c.attrs.domain, undefined, `${c.name} sets Domain=${c.attrs.domain}; session cookies must be host-only`);
       assert.equal(c.attrs.path, '/', `${c.name} must have Path=/`);
