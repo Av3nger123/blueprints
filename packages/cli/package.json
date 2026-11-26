@@ -15,7 +15,15 @@
   "engines": {
     "node": ">=20"
   },
-  "keywords": ["ai", "agents", "blueprints", "claude-code", "cursor", "codex", "security"],
+  "keywords": [
+    "ai",
+    "agents",
+    "blueprints",
+    "claude-code",
+    "cursor",
+    "codex",
+    "security"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Av3nger123/blueprints.git",
@@ -23,7 +31,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "node --import tsx --test src/*.test.ts"
+    "test": "node --import tsx --test src/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "@your-npm-scope/blueprints-core": "workspace:*"

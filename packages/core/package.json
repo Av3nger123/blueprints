@@ -26,7 +26,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node -e \"require('fs').copyFileSync('../../spec/blueprint.schema.json','dist/blueprint.schema.json')\"",
-    "test": "node --import tsx --test src/*.test.ts"
+    "test": "node --import tsx --test src/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "ajv": "^8.20.0",

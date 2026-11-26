@@ -15,7 +15,9 @@ const REPO = fileURLToPath(new URL('../../../', import.meta.url));
 function repoFetch(log: string[] = []): FetchLike {
   return async (url) => {
     log.push(url);
-    const rel = decodeURIComponent(url.slice('https://example.test/reg/'.length));
+    const prefix = 'https://example.test/reg/';
+    if (!url.startsWith(prefix)) return { ok: false, status: 404, text: async () => 'not found' };
+    const rel = decodeURIComponent(url.slice(prefix.length));
     if (rel === 'registry.json') {
       // Serve a freshly built registry so this test does not depend on the committed file being current.
       const body = serializeRegistry((await buildRegistry(REPO)).registry);

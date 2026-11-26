@@ -12,6 +12,7 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json && pnpm -r typecheck",
     "validate": "node packages/cli/dist/index.js validate blueprints",
     "registry": "tsx scripts/build-registry.ts",
     "registry:check": "tsx scripts/build-registry.ts --check",
