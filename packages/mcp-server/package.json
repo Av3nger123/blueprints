@@ -1,0 +1,42 @@
+{
+  "name": "@your-npm-scope/blueprints-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that serves expert implementation blueprints to AI coding agents",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "blueprints-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "agents",
+    "blueprints",
+    "claude-code",
+    "cursor",
+    "codex"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Av3nger123/blueprints.git",
+    "directory": "packages/mcp-server"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --import tsx --test src/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@your-npm-scope/blueprints-core": "workspace:*",
+    "zod": "^4.6.7"
+  }
+}

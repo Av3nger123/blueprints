@@ -1,0 +1,58 @@
+{
+  "spec_version": "0.1",
+  "blueprints": [
+    {
+      "name": "auth",
+      "version": "0.1.0",
+      "title": "Authentication & Authorization",
+      "summary": "Email-and-password authentication with server-side sessions, argon2id password storage, recovery, brute-force and CSRF protection, and deny-by-default RBAC enforced in the service layer.",
+      "category": "security",
+      "stacks": [
+        "express",
+        "fastapi",
+        "nextjs"
+      ],
+      "status": "draft",
+      "tags": [
+        "authentication",
+        "authorization",
+        "login",
+        "signup",
+        "sessions",
+        "passwords",
+        "password-reset",
+        "rbac",
+        "csrf",
+        "owasp-asvs"
+      ],
+      "depends_on": [],
+      "path": "blueprints/auth",
+      "files": [
+        "BLUEPRINT.md",
+        "SKILL.md",
+        "adapters/express.md",
+        "adapters/fastapi.md",
+        "adapters/nextjs.md",
+        "blueprint.yaml",
+        "reference/login-flow.ts",
+        "reference/policy.ts",
+        "reference/refresh-rotation.ts",
+        "reference/schema.sql",
+        "verify/checklist.md",
+        "verify/tests/01-registration.test.mjs",
+        "verify/tests/02-login.test.mjs",
+        "verify/tests/03-cookies.test.mjs",
+        "verify/tests/04-sessions.test.mjs",
+        "verify/tests/05-csrf.test.mjs",
+        "verify/tests/06-authorization.test.mjs",
+        "verify/tests/07-recovery.test.mjs",
+        "verify/tests/08-tokens.test.mjs",
+        "verify/tests/99-rate-limit.test.mjs",
+        "verify/tests/lib/assert.mjs",
+        "verify/tests/lib/client.mjs",
+        "verify/tests/lib/config.mjs",
+        "verify/tests/run.mjs"
+      ]
+    }
+  ]
+}
