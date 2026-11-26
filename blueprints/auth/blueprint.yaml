@@ -95,4 +95,4 @@ verification:
       description: Domain used for generated test accounts.
 last_reviewed: "2026-11-26"
 license: CC-BY-4.0
-tags: [authentication, authorization, sessions, passwords, rbac, csrf, owasp-asvs]
+tags: [authentication, authorization, login, signup, sessions, passwords, password-reset, rbac, csrf, owasp-asvs]
