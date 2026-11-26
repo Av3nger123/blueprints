@@ -1,0 +1,35 @@
+{
+  "name": "@your-npm-scope/blueprints-core",
+  "version": "0.1.0",
+  "description": "Load, validate and resolve blueprints from a local path or a GitHub registry",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Av3nger123/blueprints.git",
+    "directory": "packages/core"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node -e \"require('fs').copyFileSync('../../spec/blueprint.schema.json','dist/blueprint.schema.json')\"",
+    "test": "node --import tsx --test src/*.test.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "yaml": "^2.9.1"
+  }
+}

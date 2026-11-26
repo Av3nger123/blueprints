@@ -112,7 +112,7 @@ MUST have content. Authors MAY add level-3 subsections and MAY add extra level-2
 |---|---|---|
 | 1 | `## Overview` | What capability this is, what it delivers, and the scope boundary (what is out of scope). |
 | 2 | `## When to use` | Situations it fits, situations it does not, and what to use instead. |
-| 3 | `## Decisions & tradeoffs` | Each real design choice as options with tradeoffs and **one marked default** (`**Default:**`). An agent MUST take the default unless the codebase or the user dictates otherwise, and MUST state any deviation. |
+| 3 | `## Decisions & tradeoffs` | Each real design choice as a `###` subsection with options, tradeoffs and **one marked default**: a paragraph starting `**Default:`. An agent MUST take the default unless the codebase or the user dictates otherwise, and MUST state any deviation. |
 | 4 | `## Non-negotiables` | Numbered rules that hold no matter which option was chosen. Phrased as MUST / MUST NOT. Each SHOULD cite a source. |
 | 5 | `## Architecture` | Modules or layers, their responsibilities, and a folder layout. Stack-neutral: adapters map it to conventions. |
 | 6 | `## Data model` | Entities, fields, types, constraints and indexes, stack-neutral. |
@@ -184,8 +184,9 @@ Blueprints use Semantic Versioning, applied to the **contract an agent relies on
 | MINOR | New decision options, new checks, new adapters, new sections; anything additive. |
 | PATCH | Wording, typo, link or citation fixes that change no behavior. |
 
-`depends_on[].version` accepts an exact version (`1.2.3`), a caret range (`^1.2.0`: same major, at least
-this version), a tilde range (`~1.2.0`: same major and minor), or `*`. Dependency cycles are invalid.
+`depends_on[].version` accepts an exact version (`1.2.3`), a caret range, a tilde range, or `*`, with npm
+semantics: `^1.2.0` means `>=1.2.0 <2.0.0`, `^0.2.0` means `>=0.2.0 <0.3.0`, and `~1.2.0` means `>=1.2.0 <1.3.0`.
+Prereleases match only a range whose base is a prerelease of the same version. Dependency cycles are invalid.
 
 ## 8. Trust tiers
 

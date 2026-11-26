@@ -100,7 +100,7 @@ export class Client {
       }
     }
     const text = await res.text();
-    let json = null;
+    let json;
     try {
       json = text ? JSON.parse(text) : null;
     } catch {

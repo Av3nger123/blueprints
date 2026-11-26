@@ -123,7 +123,8 @@ it for high-value systems.
 | Rotation | Never forced. Change only on suspected compromise. | ASVS 6.2.10 |
 | Paste and password managers | Allowed. Offer a show-password toggle. | ASVS 6.2.6, 6.2.7 |
 
-Apply the policy at registration, password change and password reset.
+**Default: every value in the Default column**, applied at registration, password change and password reset.
+The one real choice is the minimum length: take 15 unless MFA is mandatory for every account.
 
 ### D5. CSRF strategy
 
