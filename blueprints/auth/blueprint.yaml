@@ -1,0 +1,98 @@
+spec_version: "0.1"
+name: auth
+version: 0.1.0
+title: Authentication & Authorization
+summary: >-
+  Email-and-password authentication with server-side sessions, argon2id password storage, recovery,
+  brute-force and CSRF protection, and deny-by-default RBAC enforced in the service layer.
+category: security
+status: draft
+authors:
+  - name: Av3nger123
+    github: Av3nger123
+reviewers: []
+stacks: [express, fastapi, nextjs]
+depends_on: []
+sources:
+  - title: OWASP Application Security Verification Standard 5.0.0
+    url: https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en
+    kind: standard
+  - title: NIST SP 800-63B-4, Authentication and Authenticator Management
+    url: https://pages.nist.gov/800-63-4/sp800-63b.html
+    kind: standard
+  - title: RFC 9106, Argon2 Memory-Hard Function
+    url: https://www.rfc-editor.org/rfc/rfc9106
+    kind: rfc
+  - title: RFC 9700, Best Current Practice for OAuth 2.0 Security
+    url: https://www.rfc-editor.org/rfc/rfc9700
+    kind: rfc
+  - title: Cookies, HTTP State Management Mechanism (RFC 6265bis)
+    url: https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/
+    kind: rfc
+  - title: W3C Fetch Metadata Request Headers
+    url: https://www.w3.org/TR/fetch-metadata/
+    kind: standard
+  - title: OWASP Password Storage Cheat Sheet
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+    kind: guide
+  - title: OWASP Authentication Cheat Sheet
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+    kind: guide
+  - title: OWASP Session Management Cheat Sheet
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+    kind: guide
+  - title: OWASP Cross-Site Request Forgery Prevention Cheat Sheet
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+    kind: guide
+  - title: OWASP Forgot Password Cheat Sheet
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html
+    kind: guide
+  - title: OWASP Authorization Cheat Sheet
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+    kind: guide
+  - title: "Pre-hijacked accounts: An Empirical Study of Security Failures in User Account Creation on the Web (USENIX Security 2022)"
+    url: https://www.usenix.org/conference/usenixsecurity22/presentation/sudhodanan
+    kind: paper
+verification:
+  framework: node:test
+  runtime: node>=20
+  command: node verify/tests/run.mjs
+  env:
+    - name: BASE_URL
+      required: true
+      description: Origin of the running application under test, e.g. http://localhost:3000.
+    - name: AUTH_PREFIX
+      required: false
+      default: /auth
+      description: Path the auth contract endpoints are mounted under.
+    - name: AUTH_MODE
+      required: false
+      default: session
+      description: session (cookie sessions, the default) or token (access + rotating refresh tokens).
+    - name: SESSION_COOKIE_NAME
+      required: false
+      description: Name of the session cookie; restricts cookie-flag checks to it.
+    - name: CSRF_HEADER
+      required: false
+      default: X-CSRF-Token
+      description: Header carrying the synchronizer token when GET /auth/csrf is implemented.
+    - name: PROTECTED_PATH
+      required: false
+      description: A GET route requiring a permission the default user role lacks, e.g. /admin/ping.
+    - name: ADMIN_EMAIL
+      required: false
+      description: Account that holds the permission PROTECTED_PATH requires.
+    - name: ADMIN_PASSWORD
+      required: false
+      description: Password for ADMIN_EMAIL.
+    - name: RATE_LIMIT_MAX_ATTEMPTS
+      required: false
+      default: "10"
+      description: Failed logins within which a 429 must appear.
+    - name: TEST_EMAIL_DOMAIN
+      required: false
+      default: example.com
+      description: Domain used for generated test accounts.
+last_reviewed: "2026-11-26"
+license: CC-BY-4.0
+tags: [authentication, authorization, sessions, passwords, rbac, csrf, owasp-asvs]
