@@ -1,0 +1,1 @@
+run_id,date,task,arm,agent,agent_version,model_id,blueprint_version,registry_commit,repetition,status,build_ok,automated_pass,automated_fail,automated_skip_applicable,automated_not_applicable,manual_pass,manual_fail,manual_na,critical_failures,interventions,wall_clock_s,tokens_in,tokens_out,cost_usd,deviations,raw_verify_json,diff_path,transcript_path,notes
