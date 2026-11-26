@@ -152,7 +152,10 @@ are not a full application and MUST NOT be presented as one.
 - Tests are **black-box**: they exercise the running application through its public interface (for HTTP
   blueprints, a `BASE_URL`) and MUST NOT import application code. This keeps one suite valid for every stack.
 - Tests MUST be runnable with `verification.command` and the variables in `verification.env` alone.
-- Tests MUST print the checklist id in each test name (for example `AUTH-07 session cookie is HttpOnly`).
+- Tests MUST print the checklist id at the start of each test name (for example `AUTH-07 session cookie is HttpOnly`).
+- When the environment sets `BLUEPRINT_TEST_REPORTER=tap`, `verification.command` MUST write TAP (version 13 or
+  14, nested subtests allowed) to stdout. It MUST exit non-zero if any test failed. `blueprints verify` uses this to
+  map results onto checklist ids. Any test framework that can emit TAP works.
 - A test whose preconditions are not configured (for example an optional admin account) MUST be reported as
   **skipped** with the reason, never as passed.
 - Tests MUST be safe to run against a dedicated test or staging instance and MUST NOT be run against production.
